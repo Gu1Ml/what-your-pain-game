@@ -8,10 +8,10 @@
 
 **Objetivo:** criar a base executável e a estrutura de diretórios sem implementar gameplay.
 
-- [ ] T001 Criar/inicializar o projeto Godot 4.6.3 .NET em `project.godot` e `WhatYourPain.csproj`; confirmar build C# mínima.
-- [ ] T002 [P] Criar as pastas `scenes/`, `scripts/application/`, `scripts/domain/`, `scripts/content/`, `scripts/generation/`, `scripts/persistence/`, `scripts/presentation/`, `content/`, `tests/` e `docs/`.
-- [ ] T003 [P] Adicionar à raiz o `README.md` do jogo, incluindo objetivo da alpha, requisitos locais e referência aos documentos Spec-Kit.
-- [ ] T004 Registrar uma configuração de build Windows e confirmar que uma cena vazia pode ser executada/exportada antes de adicionar gameplay.
+- [x] T001 Criar/inicializar o projeto Godot 4.6.3 .NET em `project.godot` e `WhatYourPain.csproj`; confirmar build C# mínima.
+- [x] T002 [P] Criar as pastas `scenes/`, `scripts/application/`, `scripts/domain/`, `scripts/content/`, `scripts/generation/`, `scripts/persistence/`, `scripts/presentation/`, `content/`, `tests/` e `docs/`.
+- [x] T003 [P] Adicionar à raiz o `README.md` do jogo, incluindo objetivo da alpha, requisitos locais e referência aos documentos Spec-Kit.
+- [x] T004 Registrar uma configuração de build Windows e confirmar que uma cena vazia pode ser executada/exportada antes de adicionar gameplay.
 
 ## Phase 2 — Foundational: contratos e estado
 

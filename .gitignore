@@ -1,0 +1,12 @@
+# Godot 4+
+.godot/
+/android/
+
+# .NET
+bin/
+obj/
+*.user
+.vs/
+
+# Builds exportadas
+/build/
