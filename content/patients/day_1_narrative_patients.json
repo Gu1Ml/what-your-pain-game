@@ -1,0 +1,85 @@
+{
+  "id": "day_1_narrative_patients",
+  "dayNumber": 1,
+  "patients": [
+    {
+      "id": "marcio_souza",
+      "patientType": "STORY",
+      "name": "Márcio Souza",
+      "age": 40,
+      "profileText": "homem de 40 anos, segurando o joelho direito.",
+      "declaredSymptoms": ["dor aguda no joelho e inchaço visível"],
+      "document": {
+        "documentType": "RG",
+        "validityStatus": "VALID",
+        "issueYear": 2022
+      },
+      "visibleFacts": ["queda de escada"],
+      "hiddenFacts": ["RG válido (emissão 2022)"],
+      "dialogueId": "d1_marcio_entry",
+      "decisionMatrixId": "d1_marcio_souza"
+    },
+    {
+      "id": "camila_torres",
+      "patientType": "STORY",
+      "name": "Camila Torres",
+      "age": 28,
+      "profileText": "mulher de 28 anos, mascando chiclete, olhando o celular.",
+      "declaredSymptoms": ["Tontura chata desde ontem."],
+      "document": {
+        "documentType": "RG",
+        "validityStatus": "EXPIRED"
+      },
+      "hiddenFacts": ["RG vencido há 4 anos."],
+      "dialogueId": "d1_camila_entry",
+      "decisionMatrixId": "d1_camila_torres"
+    },
+    {
+      "id": "lucas_mendes",
+      "patientType": "STORY",
+      "name": "Lucas Mendes",
+      "age": 11,
+      "profileText": "menino de 11 anos, mochila escolar nas costas, tentando parecer sério.",
+      "declaredSymptoms": ["Febre alta repentina e dor no corpo todo."],
+      "document": {
+        "documentType": "RG",
+        "validityStatus": "VALID"
+      },
+      "visibleFacts": ["solicita atestado escolar"],
+      "hiddenFacts": ["temperature_celsius=36.6"],
+      "dialogueId": "d1_lucas_entry",
+      "decisionMatrixId": "d1_lucas_mendes",
+      "epilogueFlag": "lucas_visita_1"
+    },
+    {
+      "id": "helena_rios",
+      "patientType": "STORY",
+      "name": "Helena Rios",
+      "age": 32,
+      "profileText": "mulher de 32 anos, aparência cansada, sacola de mercado nas mãos.",
+      "document": {
+        "documentType": "RG",
+        "validityStatus": "VALID"
+      },
+      "visibleFacts": ["busca de medicação contínua para asma do filho", "Receita médica vencida há 2 dias"],
+      "hiddenFacts": ["é mãe solteira, trabalha em dois empregos e levou três semanas para conseguir folga; a bombinha do filho acabou"],
+      "dialogueId": "d1_helena_entry",
+      "decisionMatrixId": "d1_helena_rios"
+    },
+    {
+      "id": "roberto_paiva",
+      "patientType": "STORY",
+      "name": "Roberto Paiva",
+      "age": 50,
+      "profileText": "homem de 50 anos, camisa amassada, cheiro de cigarro.",
+      "declaredSymptoms": ["dor de dente há 2 semanas"],
+      "document": {
+        "documentType": "CNH",
+        "validityStatus": "VALID"
+      },
+      "dialogueId": "d1_roberto_entry",
+      "decisionMatrixId": "d1_roberto_paiva"
+    }
+  ],
+  "notes": "Perfis, fichas e sintomas literais de docs/sources/dia-1.md §4. Exceções, também literais: 'solicita atestado escolar' (Lucas) e a revelação de Helena vêm do briefing v1.0 §8.3. Camila: a ficha literal diz 'Tontura chata desde ontem.'; briefing v1.0, spec.md e decisions.md descrevem 'tontura leve'. A divergência não foi resolvida (INC-011). A validade do RG de Márcio e Camila está em hiddenFacts conforme spec.md US2-2, mas o briefing v1.0 a lista como dado visível (INC-012). 'nameVisible'/'identifierVisible'/'expiryDate' não informados pela fonte (O-005). Aceitação da CNH: O-004. Obrigatoriedade do termômetro: L-005."
+}

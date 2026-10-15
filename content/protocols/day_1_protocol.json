@@ -1,0 +1,79 @@
+{
+  "id": "day_1_protocol",
+  "dayNumber": 1,
+  "title": "PROTOCOLO DE TRIAGEM - DIA 1",
+  "rulesHeading": "[ REGRAS BÁSICAS DE VALIDAÇÃO ]",
+  "ruleGroups": [
+    { "number": 1, "title": "DOCUMENTO" },
+    { "number": 2, "title": "SINTOMAS ACEITOS PARA ATENDIMENTO IMEDIATO" },
+    { "number": 3, "title": "SINTOMAS SEM DIREITO A ATENDIMENTO IMEDIATO (Encaminhar/Recusar)" }
+  ],
+  "rules": [
+    {
+      "id": "D1_DOCUMENT_VALID",
+      "category": "DOCUMENT",
+      "description": "Deve conter Nome + RG/CPF visível e DENTRO DA VALIDADE.",
+      "ruleGroup": 1
+    },
+    {
+      "id": "D1_IMMEDIATE_FEVER_ABOVE_38",
+      "category": "SYMPTOM",
+      "description": "Febre acima de 38°C",
+      "ruleGroup": 2
+    },
+    {
+      "id": "D1_IMMEDIATE_ACUTE_PAIN",
+      "category": "SYMPTOM",
+      "description": "Dores intensas/Agudas (abdômen, peito, cabeça)",
+      "ruleGroup": 2
+    },
+    {
+      "id": "D1_IMMEDIATE_ACTIVE_BLEEDING",
+      "category": "SYMPTOM",
+      "description": "Ferimentos com sangramento ativo",
+      "ruleGroup": 2
+    },
+    {
+      "id": "D1_NO_IMMEDIATE_ATTESTATION_REQUEST",
+      "category": "ATTESTATION",
+      "description": "Pedidos de atestado médico sem sintoma agudo",
+      "ruleGroup": 3
+    },
+    {
+      "id": "D1_NO_IMMEDIATE_MILD_OR_LASTING",
+      "category": "SYMPTOM",
+      "description": "Tontura leve / Cansaço / Sintomas com mais de 3 dias",
+      "ruleGroup": 3
+    },
+    {
+      "id": "D1_NO_IMMEDIATE_PRESCRIPTION_INVALID",
+      "category": "PRESCRIPTION",
+      "description": "Receita médica vencida ou sem assinatura",
+      "ruleGroup": 3
+    }
+  ],
+  "noticesHeading": "[ ATENÇÃO ]",
+  "notices": [
+    {
+      "id": "D1_NOTICE_TRIAGE_ERROR",
+      "text": "Erros de triagem: sem comissão do paciente + multa de $5.",
+      "status": "APPROVED",
+      "decisionIds": ["D-010"]
+    },
+    {
+      "id": "D1_NOTICE_COMMISSION",
+      "text": "Comissão: $5 por paciente correto.",
+      "status": "OPEN",
+      "decisionIds": ["D-009"],
+      "openDecisionIds": ["O-002", "INC-014"],
+      "notes": "Texto literal do folheto. O valor de $5 está fechado (D-009), mas o gatilho 'por paciente correto' contradiz 'por paciente atendido' do briefing v0.1. Bloqueado: não exibir como regra aprovada até a decisão de O-002."
+    },
+    {
+      "id": "D1_NOTICE_DAILY_EXPENSE",
+      "text": "Custo diário de subsistência: $25.",
+      "status": "APPROVED",
+      "decisionIds": ["D-008"]
+    }
+  ],
+  "notes": "Textos literais do folheto em docs/sources/dia-1.md §2. A linha '1. DOCUMENTO: Deve conter…' está dividida em título do grupo ('DOCUMENTO') e texto da regra, sem mudar as palavras. A divisão em 7 regras, seus IDs e suas categorias são inferência técnica em aberto (L-008); o briefing v1.0 usa 3 IDs. '(Encaminhar/Recusar)' no grupo 3 é texto literal e não resolve O-001. Nenhuma regra tem 'priority' (O-003). CNH e documentos sem validade: O-004 e O-005. Lista de partes do corpo da regra de dor aguda x caso de Márcio: INC-004. 'conditions' ficam vazias até T018."
+}

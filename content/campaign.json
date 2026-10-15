@@ -1,0 +1,41 @@
+{
+  "id": "what_your_pain_campaign",
+  "totalDays": 7,
+  "startingMoney": null,
+  "days": [
+    {
+      "dayNumber": 1,
+      "protocolId": "day_1_protocol",
+      "baseDurationSeconds": 300,
+      "storyPatientOrder": [
+        "marcio_souza",
+        "camila_torres",
+        "lucas_mendes",
+        "helena_rios",
+        "roberto_paiva"
+      ],
+      "routineGenerationEnabled": true,
+      "dailyLivingExpense": 25,
+      "nominalCommission": 5,
+      "genericErrorFine": 5
+    }
+  ],
+  "narrativeFlags": [
+    {
+      "id": "lucas_visita_1",
+      "allowedValues": ["true"],
+      "description": "Primeira visita de Lucas (decisions.md §3.3, FR-015)."
+    },
+    {
+      "id": "helena_outcome",
+      "allowedValues": ["refused", "helped"],
+      "description": "Escolha no dilema de Helena (FR-015). Nome diverge de 'helena=recusada/ajudada' em decisions.md §3.4 (INC-002)."
+    },
+    {
+      "id": "dog_adopted",
+      "allowedValues": ["true"],
+      "description": "Adoção do filhote (FR-015, US5: 'dog_adopted passa a verdadeiro'). As fontes não definem o que se grava ao não adotar; o uso de booleano false é proposta de modelagem (P-014). Evento implementado em T037/T038."
+    }
+  ],
+  "notes": "totalDays: D-001. Dia 1: D-006 (ordem), D-007 (300 s), D-008 (despesa $25), D-009 (comissão nominal $5; gatilho global em aberto, O-002), D-010/D-015 (multa única $5). startingMoney: $0 é proposta do autor aguardando confirmação final (P-013, L-001); continua null até ela. Marcas como texto: representação em aberto (L-009, P-014). Marcas de Márcio, Camila e Roberto não definidas (O-012)."
+}

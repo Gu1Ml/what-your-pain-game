@@ -1,6 +1,7 @@
 # Tasks: Alpha Demo de Triagem — Dia 1
 
 **Entrada:** `spec.md`, `plan.md`, `data-model.md`, `quickstart.md`, `contracts/decision-matrix-contract.md` e `.specify/memory/constitution.md`.  
+**Nota (2026-10-14):** `quickstart.md` e `contracts/decision-matrix-contract.md` ainda não existem e precisam ser gerados (INC-001 em `docs/decisions.md`). As fontes originais estão em `docs/sources/`.  
 **Regra:** executar na ordem; itens `[P]` podem ser paralelizados quando seus arquivos forem independentes e as dependências anteriores estiverem concluídas.  
 **Atenção:** tarefas que dependam de decisões marcadas `[EM ABERTO]` podem preparar estrutura/validação, mas não devem implementar uma interpretação definitiva.
 
@@ -17,14 +18,14 @@
 
 **Objetivo:** concluir as dependências que todas as histórias usam. Nenhuma história deve duplicar dados de domínio em componentes visuais.
 
-- [ ] T005 Criar os DTOs iniciais em `scripts/domain/Models/` para `DayConfig`, `PatientData`, `DocumentData`, `ProtocolData`, `ProtocolRule`, `DecisionCase`, `ActionConsequence`, `TriageResult`, `DailyFinancialResult`, `DaySummary`, `DialogueNode` e `GameSaveData`, seguindo `data-model.md`.
-- [ ] T006 Implementar `GameState.cs` em `scripts/application/GameState.cs` com leitura de estado, `SetFlag`, `BeginDay`, `ApplyTriageResult`, `ApplyDailyFinancials`, `CreateSnapshot` e `RestoreSnapshot`; restringir mutações diretas.
-- [ ] T007 Implementar `DataLoader.cs` em `scripts/content/DataLoader.cs` para ler JSON de `res://content/`, desserializar DTOs e informar arquivo/campo/ID em erros.
-- [ ] T008 Implementar validação de conteúdo em `scripts/content/ContentValidator.cs`, incluindo IDs duplicados, referências inexistentes e ações incompletas/`UNRESOLVED`.
-- [ ] T009 [P] Criar os arquivos iniciais de conteúdo `content/protocols/day_1_protocol.json`, `content/patients/day_1_narrative_patients.json`, `content/dialogues/day_1_dialogue.json` e `content/decisions/day_1_decision_matrix.json` com os conteúdos já suportados pela fonte; não preencher lacunas de design por suposição.
-- [ ] T010 [P] Criar `docs/decisions.md` no repositório do jogo copiando o registro de decisões desta distribuição e preparar formato de decisão com ID, pergunta, estado, opções e impacto.
-- [ ] T011 Criar projeto de teste isolado em `tests/`; `[PROPOSTA TÉCNICA]` usar xUnit após confirmar compatibilidade com o SDK .NET local.
-- [ ] T012 Criar testes de validação de conteúdo em `tests/content/` para arquivo ausente, JSON inválido, ID duplicado, referência quebrada e ação `UNRESOLVED` com efeito definitivo.
+- [x] T005 Criar os DTOs iniciais em `scripts/domain/Models/` para `DayConfig`, `PatientData`, `DocumentData`, `ProtocolData`, `ProtocolRule`, `DecisionCase`, `ActionConsequence`, `TriageResult`, `DailyFinancialResult`, `DaySummary`, `DialogueNode` e `GameSaveData`, seguindo `data-model.md`.
+- [x] T006 Implementar `GameState.cs` em `scripts/application/GameState.cs` com leitura de estado, `SetFlag`, `BeginDay`, `ApplyTriageResult`, `ApplyDailyFinancials`, `CreateSnapshot` e `RestoreSnapshot`; restringir mutações diretas.
+- [x] T007 Implementar `DataLoader.cs` em `scripts/content/DataLoader.cs` para ler JSON de `res://content/`, desserializar DTOs e informar arquivo/campo/ID em erros.
+- [x] T008 Implementar validação de conteúdo em `scripts/content/ContentValidator.cs`, incluindo IDs duplicados, referências inexistentes e ações incompletas/`UNRESOLVED`.
+- [x] T009 [P] Criar os arquivos iniciais de conteúdo `content/protocols/day_1_protocol.json`, `content/patients/day_1_narrative_patients.json`, `content/dialogues/day_1_dialogue.json` e `content/decisions/day_1_decision_matrix.json` com os conteúdos já suportados pela fonte; não preencher lacunas de design por suposição.
+- [x] T010 [P] Criar `docs/decisions.md` no repositório do jogo copiando o registro de decisões desta distribuição e preparar formato de decisão com ID, pergunta, estado, opções e impacto.
+- [x] T011 Criar projeto de teste isolado em `tests/`; `[PROPOSTA TÉCNICA]` usar xUnit após confirmar compatibilidade com o SDK .NET local.
+- [x] T012 Criar testes de validação de conteúdo em `tests/content/` para arquivo ausente, JSON inválido, ID duplicado, referência quebrada e ação `UNRESOLVED` com efeito definitivo.
 
 ## Phase 3 — US1: Iniciar o plantão e consultar o protocolo
 
@@ -91,7 +92,7 @@
 
 - [ ] T042 [P] Adicionar feedback mínimo de papel, documento, clique e carimbo, sem bloquear a legibilidade, em `scenes/` e `assets/audio/`.
 - [ ] T043 [P] Incluir assets visuais provisórios para guichê, retratos de história, documentos e evento do cachorro em `assets/`.
-- [ ] T044 Executar o smoke test de `quickstart.md` e registrar resultados em `docs/alpha-acceptance.md`.
+- [ ] T044 Executar o smoke test de `quickstart.md` (ainda não gerado — INC-001) e registrar resultados em `docs/alpha-acceptance.md`.
 - [ ] T045 Verificar compilação e exportação Windows; documentar versão exata do editor .NET e SDK usados em `README.md`.
 - [ ] T046 Revisar todas as pendências de `docs/decisions.md`; marcar bloqueios e não declarar a matriz completa como aprovada enquanto ações/comissão relevantes estiverem `UNRESOLVED`.
 

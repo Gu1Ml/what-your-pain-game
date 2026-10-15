@@ -104,8 +104,8 @@ what-your-pain-game/
 │       ├── plan.md
 │       ├── tasks.md
 │       ├── data-model.md
-│       ├── quickstart.md
-│       └── contracts/
+│       ├── quickstart.md          # ainda não gerado (INC-001)
+│       └── contracts/             # ainda não gerado (INC-001)
 ├── scenes/
 │   ├── MainMenu.tscn
 │   ├── TriageStation.tscn

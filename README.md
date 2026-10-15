@@ -10,7 +10,7 @@ Decisões ainda `[EM ABERTO]` (por exemplo, o mapeamento das ações FILA/ENCAMI
 
 ## Estado atual
 
-Phase 1 — Setup (T001–T004). Ainda não há gameplay: a cena principal é o placeholder técnico `scenes/Boot.tscn`, que só confirma que o assembly C# carrega. Ela será substituída por `MainMenu.tscn` em T013.
+Phase 2 — Fundação (T005–T012) concluída: DTOs de domínio, `GameState` com snapshot, carregador e validador de JSON, conteúdo inicial do Dia 1 e testes isolados. Ainda não há gameplay: a cena principal é o placeholder técnico `scenes/Boot.tscn`, que será substituído por `MainMenu.tscn` em T013. As pendências que afetam o conteúdo estão listadas em `docs/decisions.md` §5 e §9.
 
 ## Requisitos locais
 
@@ -33,6 +33,20 @@ godot --path .
 
 Use o executável do editor .NET (por exemplo `Godot_v4.6.3-stable_mono_win64_console.exe`) no lugar de `godot`.
 
+## Testes
+
+Os testes ficam em um projeto .NET separado (`tests/WhatYourPain.Tests.csproj`, xUnit). Eles compilam as fontes de domínio e de conteúdo sem o runtime do Godot, e por isso não fazem parte de `WhatYourPain.sln`, que é a solução compilada pelo editor.
+
+```bash
+dotnet test tests/WhatYourPain.Tests.csproj
+```
+
+Para validar o conteúdo dentro do próprio Godot (lendo `res://content/`), use a cena de desenvolvimento, que encerra com código 0 se o conteúdo for válido e 1 caso contrário:
+
+```bash
+godot --headless --path . res://scenes/dev/ContentCheck.tscn
+```
+
 ## Exportação Windows
 
 O preset `Windows Desktop` está registrado em `export_presets.cfg` e gera `build/windows/WhatYourPain.exe` (a pasta `build/` não é versionada):
@@ -52,8 +66,11 @@ scripts/generation/     gerador de pacientes de rotina
 scripts/persistence/    save/load local em user://
 scripts/presentation/   controladores de cena (sem regras de domínio)
 content/                dados JSON do Dia 1 (res://content/)
-tests/                  testes .NET (projeto separado, T011)
+tests/                  testes .NET (projeto separado, T011; ignorado pelo Godot via .gdignore)
 docs/                   registro de decisões e aceite
+docs/design/            referências visuais (apresentação, não regras)
+docs/sources/           fontes originais de design, sem alteração (dia-1.md, briefings)
+docs/audits/            auditorias de rastreabilidade
 ```
 
 ## Documentos Spec-Kit
@@ -65,3 +82,5 @@ docs/                   registro de decisões e aceite
 - Tarefas: [`specs/001-triagem-alpha-dia-1/tasks.md`](specs/001-triagem-alpha-dia-1/tasks.md)
 - Registro de decisões: [`docs/decisions.md`](docs/decisions.md)
 - Roteiro de execução por fases: [`IMPLEMENT.md`](IMPLEMENT.md)
+- Fontes originais (briefings e `dia-1.md`): [`docs/sources/`](docs/sources/README.md)
+- `quickstart.md` e `contracts/decision-matrix-contract.md`: citados no plano, mas ainda não gerados (INC-001)

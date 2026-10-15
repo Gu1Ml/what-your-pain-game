@@ -6,7 +6,7 @@ Este arquivo descreve como executar a fase **Implement** sobre a especificação
 
 1. Colocar este pacote no repositório do jogo e manter `.specify/memory/constitution.md` no local indicado.
 2. Inicializar o projeto Godot 4.6.3 .NET e verificar que o editor/SDK local compila C#.
-3. Ler `specs/001-triagem-alpha-dia-1/spec.md`, `plan.md`, `data-model.md`, `quickstart.md` e `docs/decisions.md`.
+3. Ler `specs/001-triagem-alpha-dia-1/spec.md`, `plan.md`, `data-model.md`, `quickstart.md` e `docs/decisions.md`. **Nota (2026-10-14):** `quickstart.md` ainda não existe e precisa ser gerado (INC-001); as fontes originais estão em `docs/sources/`.
 4. Não alterar no decorrer da implementação as regras marcadas `[EM ABERTO]` sem atualizar o registro de decisões e os arquivos impactados.
 5. Se usar um agente com integração Spec-Kit, revisar a ordem recomendada na documentação dessa integração. Normalmente, os comandos centrais são Constitution → Specify → Plan → Tasks → Implement; os nomes/atalhos podem variar conforme o agente.
 

@@ -1,0 +1,265 @@
+{
+  "id": "day_1_decision_matrix",
+  "protocolId": "day_1_protocol",
+  "destinations": [
+    { "id": "hospital", "label": "Hospital", "source": "briefing v1.0 §8.3 (atendido → hospital; atendimento incorreto → hospital)" },
+    { "id": "hospital_pharmacy", "label": "Farmácia do hospital", "source": "decisions.md §3.4; briefing v1.0 §8.3 (Helena ajudada)" },
+    { "id": "exit", "label": "Saída", "source": "briefing v1.0 §8.3 (recusa → saída); decisions.md §3.4" },
+    { "id": "waiting_chairs", "label": "Cadeiras de espera", "source": "D-020; briefing v1.0 §8.3 (fila → cadeiras de espera)" }
+  ],
+  "auditLogs": [
+    { "id": "AUD_D1_ACUTE_PAIN_MUST_BE_ATTENDED", "text": "Dor aguda deve ser atendida na hora (regra 2)", "source": "decisions.md §3.1; briefing v1.0 §8.3" },
+    { "id": "AUD_D1_EXPIRED_RG_AND_NO_IMMEDIATE", "text": "RG vencido (regra 1) e sintoma sem direito a atendimento imediato (regra 3)", "source": "briefing v1.0 §8.3 (Camila)" },
+    { "id": "AUD_D1_ATTESTATION_NORMAL_TEMPERATURE", "text": "Atestado sem sintoma agudo e temperatura normal (regra 3)", "source": "decisions.md §3.3; briefing v1.0 §8.3" },
+    { "id": "AUD_D1_EXPIRED_PRESCRIPTION_RELEASED", "text": "Receita vencida liberada", "source": "decisions.md §3.4, D-017" },
+    { "id": "AUD_D1_WRONG_SECTOR_DENTAL", "text": "Triagem em setor errado: dor crônica vai para a Odontologia", "source": "decisions.md §3.5; briefing v1.0 §8.3" }
+  ],
+  "cases": [
+    {
+      "id": "d1_marcio_souza",
+      "patientId": "marcio_souza",
+      "notes": "decisions.md §3.1: ATENDER é a única ação sem erro; qualquer outra é erro genérico. Destinos do briefing v1.0 §8.3: atendido → hospital; fila → cadeiras de espera; recusa → saída. O destino de ENCAMINHAR não é dado (L-002).",
+      "outcomes": [
+        {
+          "action": "ATTEND",
+          "classification": "CORRECT",
+          "reasonRuleIds": ["D1_IMMEDIATE_ACUTE_PAIN"],
+          "commissionDelta": 5,
+          "fineDelta": 0,
+          "specialCostDelta": 0,
+          "reputationDelta": 0,
+          "conscienceDelta": 0,
+          "destinationId": "hospital",
+          "exitDialogueId": "d1_marcio_exit",
+          "openDecisionIds": ["L-007"]
+        },
+        {
+          "action": "QUEUE",
+          "classification": "ERROR",
+          "reasonRuleIds": ["D1_IMMEDIATE_ACUTE_PAIN"],
+          "commissionDelta": 0,
+          "fineDelta": 5,
+          "specialCostDelta": 0,
+          "reputationDelta": 0,
+          "conscienceDelta": 0,
+          "destinationId": "waiting_chairs",
+          "auditLogIds": ["AUD_D1_ACUTE_PAIN_MUST_BE_ATTENDED"],
+          "openDecisionIds": ["O-014"]
+        },
+        {
+          "action": "REFER",
+          "classification": "ERROR",
+          "reasonRuleIds": ["D1_IMMEDIATE_ACUTE_PAIN"],
+          "commissionDelta": 0,
+          "fineDelta": 5,
+          "specialCostDelta": 0,
+          "reputationDelta": 0,
+          "conscienceDelta": 0,
+          "auditLogIds": ["AUD_D1_ACUTE_PAIN_MUST_BE_ATTENDED"],
+          "openDecisionIds": ["O-014", "L-002"]
+        },
+        {
+          "action": "REFUSE",
+          "classification": "ERROR",
+          "reasonRuleIds": ["D1_IMMEDIATE_ACUTE_PAIN"],
+          "commissionDelta": 0,
+          "fineDelta": 5,
+          "specialCostDelta": 0,
+          "reputationDelta": 0,
+          "conscienceDelta": 0,
+          "destinationId": "exit",
+          "auditLogIds": ["AUD_D1_ACUTE_PAIN_MUST_BE_ATTENDED"],
+          "openDecisionIds": ["O-014"]
+        }
+      ]
+    },
+    {
+      "id": "d1_camila_torres",
+      "patientId": "camila_torres",
+      "notes": "decisions.md §3.2: RECUSAR sem erro (correta em spec.md §7.2); ATENDER é erro com dois motivos e uma única multa. Log literal do briefing v1.0 §8.3. O motivo da regra 3 apoia-se na descrição 'tontura leve', que diverge da ficha literal 'Tontura chata' (INC-011). Destinos do §8.3: saída em recusa/encaminhamento; hospital se atendida incorretamente.",
+      "outcomes": [
+        {
+          "action": "ATTEND",
+          "classification": "ERROR",
+          "reasonRuleIds": ["D1_DOCUMENT_VALID", "D1_NO_IMMEDIATE_MILD_OR_LASTING"],
+          "commissionDelta": 0,
+          "fineDelta": 5,
+          "specialCostDelta": 0,
+          "reputationDelta": 0,
+          "conscienceDelta": 0,
+          "destinationId": "hospital",
+          "auditLogIds": ["AUD_D1_EXPIRED_RG_AND_NO_IMMEDIATE"],
+          "openDecisionIds": ["O-014", "INC-011"]
+        },
+        {
+          "action": "QUEUE",
+          "classification": "UNRESOLVED",
+          "openDecisionIds": ["O-001", "O-015"],
+          "notes": "A matriz permite 'recomendação para renovar documento' (RECOMENDAR legado); a correspondência com FILA/ENCAMINHAR não foi decidida."
+        },
+        {
+          "action": "REFER",
+          "classification": "UNRESOLVED",
+          "openDecisionIds": ["O-001", "O-015"],
+          "notes": "dia-1.md: '[ ENCAMINHAR PARA RENOVAÇÃO ]'; briefing v1.0 §8.4 propõe PERMITTED (INC-009). Mantido UNRESOLVED até decidir O-001."
+        },
+        {
+          "action": "REFUSE",
+          "classification": "CORRECT",
+          "reasonRuleIds": ["D1_DOCUMENT_VALID", "D1_NO_IMMEDIATE_MILD_OR_LASTING"],
+          "commissionDelta": 5,
+          "fineDelta": 0,
+          "specialCostDelta": 0,
+          "reputationDelta": 0,
+          "conscienceDelta": 0,
+          "destinationId": "exit",
+          "exitDialogueId": "d1_camila_exit",
+          "openDecisionIds": ["O-002", "L-006", "L-007", "INC-011"],
+          "notes": "Comissão de $5 conforme a matriz do Dia 1; o gatilho global está em aberto. Reputação e consciência 0 não são definidas pela fonte (L-006)."
+        }
+      ]
+    },
+    {
+      "id": "d1_lucas_mendes",
+      "patientId": "lucas_mendes",
+      "notes": "decisions.md §3.3: RECUSAR correta; ATENDER é erro. Termômetro revela 36,6 °C. A marca lucas_visita_1 está no paciente (epilogueFlag), pois independe da ação. Destinos do briefing v1.0 §8.3: saída em recusa/recomendação; hospital se atendido incorretamente.",
+      "outcomes": [
+        {
+          "action": "ATTEND",
+          "classification": "ERROR",
+          "reasonRuleIds": ["D1_NO_IMMEDIATE_ATTESTATION_REQUEST"],
+          "commissionDelta": 0,
+          "fineDelta": 5,
+          "specialCostDelta": 0,
+          "reputationDelta": 0,
+          "conscienceDelta": 0,
+          "destinationId": "hospital",
+          "auditLogIds": ["AUD_D1_ATTESTATION_NORMAL_TEMPERATURE"],
+          "openDecisionIds": ["O-014"]
+        },
+        {
+          "action": "QUEUE",
+          "classification": "UNRESOLVED",
+          "openDecisionIds": ["O-001", "O-015"],
+          "notes": "Recomendação/encaminhamento é permitido na matriz, mas destino e semântica ainda não foram definidos."
+        },
+        {
+          "action": "REFER",
+          "classification": "UNRESOLVED",
+          "openDecisionIds": ["O-001", "O-015"],
+          "notes": "Briefing v1.0 §8.4 propõe PERMITTED (INC-009); destino do encaminhamento indefinido. Mantido UNRESOLVED até decidir O-001."
+        },
+        {
+          "action": "REFUSE",
+          "classification": "CORRECT",
+          "reasonRuleIds": ["D1_NO_IMMEDIATE_ATTESTATION_REQUEST"],
+          "commissionDelta": 5,
+          "fineDelta": 0,
+          "specialCostDelta": 0,
+          "reputationDelta": 0,
+          "conscienceDelta": 0,
+          "destinationId": "exit",
+          "exitDialogueId": "d1_lucas_exit",
+          "openDecisionIds": ["O-002", "L-006", "L-007"],
+          "notes": "Comissão de $5 conforme a matriz do Dia 1; o gatilho global está em aberto. Reputação e consciência 0 não são definidas pela fonte (L-006)."
+        }
+      ]
+    },
+    {
+      "id": "d1_helena_rios",
+      "patientId": "helena_rios",
+      "notes": "decisions.md §3.4, D-016 a D-018 e D-022 (RECUSAR = CORRECT, confirmado pelo autor). O nome da marca segue FR-015 e o briefing v1.0 §7.2 (INC-002).",
+      "outcomes": [
+        {
+          "action": "ATTEND",
+          "classification": "ETHICAL_EXCEPTION",
+          "reasonRuleIds": ["D1_NO_IMMEDIATE_PRESCRIPTION_INVALID"],
+          "commissionDelta": 5,
+          "fineDelta": 0,
+          "specialCostDelta": 10,
+          "reputationDelta": -1,
+          "conscienceDelta": 1,
+          "destinationId": "hospital_pharmacy",
+          "exitDialogueId": "d1_helena_exit_helped",
+          "auditLogIds": ["AUD_D1_EXPIRED_PRESCRIPTION_RELEASED"],
+          "flagsToSet": { "helena_outcome": "helped" },
+          "openDecisionIds": ["INC-002"]
+        },
+        {
+          "action": "QUEUE",
+          "classification": "UNRESOLVED",
+          "openDecisionIds": ["O-001", "O-015"],
+          "notes": "'Recomendar reconsulta' segue o protocolo na matriz; a correspondência com FILA/ENCAMINHAR não foi decidida."
+        },
+        {
+          "action": "REFER",
+          "classification": "UNRESOLVED",
+          "openDecisionIds": ["O-001", "O-015"],
+          "notes": "Briefing v1.0 §8.4 propõe REFER_RECONSULTATION = PERMITTED (INC-009). Mantido UNRESOLVED até decidir O-001."
+        },
+        {
+          "action": "REFUSE",
+          "classification": "CORRECT",
+          "reasonRuleIds": ["D1_NO_IMMEDIATE_PRESCRIPTION_INVALID"],
+          "commissionDelta": 5,
+          "fineDelta": 0,
+          "specialCostDelta": 0,
+          "reputationDelta": 1,
+          "conscienceDelta": 0,
+          "destinationId": "exit",
+          "exitDialogueId": "d1_helena_exit_refused",
+          "flagsToSet": { "helena_outcome": "refused" },
+          "openDecisionIds": ["INC-002", "L-007"],
+          "notes": "Seguir o protocolo (D-018); classificação CORRECT confirmada (D-022)."
+        }
+      ]
+    },
+    {
+      "id": "d1_roberto_paiva",
+      "patientId": "roberto_paiva",
+      "notes": "decisions.md §3.5: RECUSAR correta (spec.md §7.2); ATENDER é erro. O vínculo do motivo à regra 3 (sintoma com mais de 3 dias) tem como fonte o briefing v1.0 §8.3: 'Regra: sintoma com mais de três dias e setor inadequado para odontologia'. O 'setor inadequado' não é regra do folheto. Aguardando confirmação (L-004). Se a CNH não for aceita (O-004), a regra documental também seria motivo. Destinos do §8.3: saída quando recusado/encaminhado; hospital se atendido incorretamente.",
+      "outcomes": [
+        {
+          "action": "ATTEND",
+          "classification": "ERROR",
+          "reasonRuleIds": ["D1_NO_IMMEDIATE_MILD_OR_LASTING"],
+          "commissionDelta": 0,
+          "fineDelta": 5,
+          "specialCostDelta": 0,
+          "reputationDelta": 0,
+          "conscienceDelta": 0,
+          "destinationId": "hospital",
+          "auditLogIds": ["AUD_D1_WRONG_SECTOR_DENTAL"],
+          "openDecisionIds": ["O-004", "O-014", "L-004"]
+        },
+        {
+          "action": "QUEUE",
+          "classification": "UNRESOLVED",
+          "openDecisionIds": ["O-001", "O-015"],
+          "notes": "Encaminhar à Odontologia do Posto Central é permitido na matriz; a correspondência com FILA/ENCAMINHAR não foi decidida."
+        },
+        {
+          "action": "REFER",
+          "classification": "UNRESOLVED",
+          "openDecisionIds": ["O-001", "O-015"],
+          "notes": "dia-1.md: '[ ENCAMINHAR / RECUSAR ]'; briefing v1.0 §8.4 propõe PERMITTED (INC-009). Mantido UNRESOLVED até decidir O-001."
+        },
+        {
+          "action": "REFUSE",
+          "classification": "CORRECT",
+          "reasonRuleIds": ["D1_NO_IMMEDIATE_MILD_OR_LASTING"],
+          "commissionDelta": 5,
+          "fineDelta": 0,
+          "specialCostDelta": 0,
+          "reputationDelta": 0,
+          "conscienceDelta": 0,
+          "destinationId": "exit",
+          "exitDialogueId": "d1_roberto_exit",
+          "openDecisionIds": ["O-002", "O-004", "L-004", "L-006", "L-007"],
+          "notes": "Comissão de $5 conforme a matriz do Dia 1; o gatilho global está em aberto. Reputação e consciência 0 não são definidas pela fonte (L-006)."
+        }
+      ]
+    }
+  ],
+  "notes": "Matriz do Dia 1 derivada de decisions.md §3, spec.md §7.2 e briefing v1.0 §8.3. Classificações e valores não mudaram na revisão de 2026-10-14; só foram aplicados destinos (§8.3), falas de saída literais (dia-1.md) e o log literal de Camila. Reputação 0 em erro genérico segue a conduta de O-014. Destinos e falas de FILA/ENCAMINHAR continuam pendentes (O-001, briefing §17.3 L); não há fala de saída para erros (P-012). Motivos de regra em resultados sem erro: L-007."
+}

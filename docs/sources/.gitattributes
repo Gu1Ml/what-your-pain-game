@@ -1,0 +1,2 @@
+# Fontes originais: preservar os bytes exatos (sem conversão de fim de linha pelo core.autocrlf).
+*.md -text

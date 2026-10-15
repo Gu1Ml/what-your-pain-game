@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    Testes isolados do domínio e do conteúdo, sem o runtime do Godot (T011).
+    Compila as fontes do jogo por link em vez de referenciar WhatYourPain.csproj, porque
+    o assembly do jogo depende do GodotSharp nativo. Só entram arquivos sem dependência de Godot.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <RootNamespace>WhatYourPain.Tests</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="../scripts/domain/**/*.cs" Link="Game/domain/%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="../scripts/content/**/*.cs" Exclude="../scripts/content/GodotContentSource.cs" Link="Game/content/%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="../scripts/application/GameState.cs" Link="Game/application/GameState.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
+  </ItemGroup>
+</Project>

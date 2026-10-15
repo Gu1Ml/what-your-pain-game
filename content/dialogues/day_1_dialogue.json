@@ -1,0 +1,35 @@
+{
+  "id": "day_1_dialogue",
+  "dayNumber": 1,
+  "nodes": [
+    { "id": "d1_ralel_1", "speakerId": "ralel", "trigger": "ENTRY", "text": "Pronto. O posto é seu. O turno da noite foi um caos... duas brigas de bar e um idoso que engoliu a prótese dentária.", "nextDialogueId": "d1_ralel_2" },
+    { "id": "d1_ralel_2", "speakerId": "ralel", "trigger": "ENTRY", "text": "Deixei o folheto do protocolo do dia em cima da mesa. Lembre-se: confere o nome na ficha, o tipo de sintoma e se o documento tá no prazo. A diretoria tá de olho nas falhas.", "nextDialogueId": "d1_ralel_3" },
+    { "id": "d1_ralel_3", "speakerId": "ralel", "trigger": "ENTRY", "text": "Boa sorte. Vou tentar dormir seis horas seguidas se o barulho da obra deixar." },
+
+    { "id": "d1_marcio_entry", "speakerId": "marcio_souza", "trigger": "ENTRY", "text": "Caí do degrau arrumando a calha. Não consigo nem apoiar o pé no chão..." },
+    { "id": "d1_marcio_player_document", "speakerId": "player", "trigger": "INSPECTION", "text": "Documento ok. Sintoma agudo." },
+    { "id": "d1_marcio_exit", "speakerId": "marcio_souza", "trigger": "EXIT", "text": "Obrigado, doutor." },
+
+    { "id": "d1_camila_entry", "speakerId": "camila_torres", "trigger": "ENTRY", "text": "Preciso ver um médico logo, tenho compromisso às 15h." },
+    { "id": "d1_camila_player_document", "speakerId": "player", "trigger": "INSPECTION", "text": "Seu RG está vencido.", "nextDialogueId": "d1_camila_reply" },
+    { "id": "d1_camila_reply", "speakerId": "camila_torres", "trigger": "INSPECTION", "text": "Ah, mas é só para uma receita de vitamina. Ninguém olha isso aqui." },
+    { "id": "d1_camila_exit", "speakerId": "camila_torres", "trigger": "EXIT", "text": "Que burocracia ridícula. Vou no posto do bairro." },
+
+    { "id": "d1_lucas_entry", "speakerId": "lucas_mendes", "trigger": "ENTRY", "text": "Moço, estou queimando de febre. Preciso de um atestado para hoje... o dia inteiro de preferência." },
+    { "id": "d1_lucas_player_thermometer", "speakerId": "player", "trigger": "INSPECTION", "text": "Sua temperatura está 36,6°C. Normal.", "nextDialogueId": "d1_lucas_reply" },
+    { "id": "d1_lucas_reply", "speakerId": "lucas_mendes", "trigger": "INSPECTION", "text": "É que... a febre é interna! Dá para sentir no peito. É dia de prova de Educação Física..." },
+    { "id": "d1_lucas_exit", "speakerId": "lucas_mendes", "trigger": "EXIT", "text": "Poxa... valeu a tentativa. Volto depois de amanhã." },
+
+    { "id": "d1_helena_entry", "speakerId": "helena_rios", "trigger": "ENTRY", "text": "Preciso retirar a bombinha do meu filho na farmácia de vocês. A dele acabou hoje cedo." },
+    { "id": "d1_helena_player_prescription", "speakerId": "player", "trigger": "INSPECTION", "text": "Esta receita venceu anteontem. Precisa de uma nova consulta.", "nextDialogueId": "d1_helena_reveal" },
+    { "id": "d1_helena_reveal", "speakerId": "helena_rios", "trigger": "INSPECTION", "text": "Eu sei... sou mãe solteira, trabalho em dois empregos e cuido dele sozinha. Levei três semanas para conseguir folga para vir aqui hoje. Se eu voltar sem o remédio, ele não dorme à noite com crise." },
+    { "id": "d1_helena_exit_refused", "speakerId": "helena_rios", "trigger": "EXIT", "text": "Compreendo... regras são regras. Vou ver se consigo emprestado com a vizinha..." },
+    { "id": "d1_helena_exit_helped", "speakerId": "helena_rios", "trigger": "EXIT", "text": "Muito obrigada, moço... você não imagina o alívio que isso me dá." },
+
+    { "id": "d1_roberto_entry", "speakerId": "roberto_paiva", "trigger": "ENTRY", "text": "Tô com um dente doendo desde o começo do mês. Me manda pro cirurgião aí." },
+    { "id": "d1_roberto_player_sector", "speakerId": "player", "trigger": "INSPECTION", "text": "Dor de dente crônica é na Odontologia do Posto Central, não no Pronto Atendimento de Emergência.", "nextDialogueId": "d1_roberto_reply" },
+    { "id": "d1_roberto_reply", "speakerId": "roberto_paiva", "trigger": "INSPECTION", "text": "Mas na recepção disseram que aqui atendia tudo!" },
+    { "id": "d1_roberto_exit", "speakerId": "roberto_paiva", "trigger": "EXIT", "text": "Perdi meu tempo aqui..." }
+  ],
+  "notes": "Falas literais de docs/sources/dia-1.md §1 (Ralel) e §4 (pacientes), sem aspas. Indicações de cena da fonte ficaram fora do texto: '(ao conferir o documento)', '(ao apontar a data no RG)', '(conferindo o termômetro de triagem)', '(sussurrando)' na saída de Lucas, '(abaixa a cabeça)' na de Helena. Inferência técnica: 'trigger' e o encadeamento por 'nextDialogueId' (ENTRY para a passagem de Ralel, INSPECTION para a fala do jogador e a resposta). Não há fala de saída para erros nem para FILA/ENCAMINHAR: as alternativas são [PROPOSTA] (P-012). O texto do evento do cachorro fica para T037."
+}
